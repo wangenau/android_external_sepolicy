@@ -1,7 +1,12 @@
-type su, domain;
-permissive su;
+# File types must be defined for file_contexts.
 type su_exec, exec_type, file_type;
-domain_auto_trans(shell, su_exec, su)
 
-# su is unconfined.
-unconfined_domain(su)
+userdebug_or_eng(`
+  type su, domain;
+  domain_auto_trans(shell, su_exec, su)
+
+  # su is unconfined.
+  unconfined_domain(su)
+
+  permissive su;
+')
